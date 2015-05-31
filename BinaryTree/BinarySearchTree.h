@@ -147,31 +147,31 @@ BstNode<T> *BinarySerchTree<T>::iterSearch(const Element<T>&x) {
 template<class T>
 bool BinarySerchTree<T>::deleteNode(BstNode<T>*currecntNode) {
     BstNode<T>*q, *s;
-    if (currecntNode->rightChild == NULL) {
+    if (currecntNode->rightChild == NULL) {//右子树为空重新连接他的左子树
         q = currecntNode;
-        currecntNode = currecntNode->rightChild;
+        currecntNode = currecntNode->leftChild;
         delete q;
         q = NULL;
     }
-    else if (currecntNode->leftChild == NULL) {
+    else if (currecntNode->leftChild == NULL) {//连接他的右子树
         q = currecntNode;
-        currecntNode = currecntNode->leftChild;
+        currecntNode = currecntNode->rightChild;
         delete q;
         q = NULL;
     }
     else {
         q = currecntNode;
         s = currecntNode->leftChild;
-        while (s->rightChild) {
+        while (s->rightChild) {//转左，然后向右到尽头（找待删结点的前驱）
             q = s;
             s = s->rightChild;
         }
-        currecntNode->data = s->data;
+        currecntNode->data = s->data;//s指向被删结点的直接前驱（将被删结点前驱的值取代被删结点的值
         if (q != currecntNode) {
-            q->rightChild = s->leftChild;
+            q->rightChild = s->leftChild;//重连q的右子树
         }
         else {
-            q->leftChild = s->leftChild;
+            q->leftChild = s->leftChild;//重连q的左子树
         }
         delete s;
         s = NULL;
