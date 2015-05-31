@@ -27,6 +27,7 @@ int BSTmain() {
     ptr2 = m.search(f);
     std::cout << ptr2->data.key << std::endl;
 
+    m.deleteBST(a);
 
     m.inOrder();
     std::cout << std::endl;

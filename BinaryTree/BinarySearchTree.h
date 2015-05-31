@@ -2,7 +2,7 @@
 #define BINARYSEARCHTREE_H_
 
 #include <iostream>
-
+#include <stdio.h>
 
 template<class T>
 class Element {
@@ -33,7 +33,11 @@ public:
     BstNode<T> *search(const Element<T>&x);//查找
     BstNode<T> *search(BstNode<T>*treeNode, const Element<T>&x);
     BstNode<T> *iterSearch(const Element<T>&x);//迭代查找
-    bool deleteNode(const Element<T>&x);
+
+    bool deleteNode(BstNode<T>*currentNode);
+    bool deleteBST(const Element<T>&x);
+    bool deleteBST(BstNode<T>*currentNode, const Element<T>&x);
+
     void display();
 
     void visit(BstNode<T>*currentNode);
@@ -73,7 +77,7 @@ void BstNode<T>::display(int i) {
 template<class T>
 bool BinarySerchTree<T>::insert(const Element<T>&x) {
     BstNode<T> *p = root;
-    BstNode<T> *q = 0;//指向p的父节点
+    BstNode<T> *q = NULL;//指向p的父节点
     //插入前先查找
     while (p) {
         q = p;
@@ -141,11 +145,60 @@ BstNode<T> *BinarySerchTree<T>::iterSearch(const Element<T>&x) {
 }
 
 template<class T>
-bool BinarySerchTree<T>::deleteNode(const Element<T>&x) {
-    if (!search(x)) {
+bool BinarySerchTree<T>::deleteNode(BstNode<T>*currecntNode) {
+    BstNode<T>*q, *s;
+    if (currecntNode->rightChild == NULL) {
+        q = currecntNode;
+        currecntNode = currecntNode->rightChild;
+        free(q);
+    }
+    else if (currecntNode->leftChild == NULL) {
+        q = currecntNode;
+        currecntNode = currecntNode->leftChild;
+        free(q);
+    }
+    else {
+        q = currecntNode;
+        s = currecntNode->leftChild;
+        while (s->rightChild) {
+            q = s;
+            s = s->rightChild;
+        }
+        currecntNode->data = s->data;
+        if (q != currecntNode) {
+            q->rightChild = s->leftChild;
+        }
+        else {
+            q->leftChild = s->leftChild;
+        }
+        free(s);
+    }
+    return true;
+}
+
+template<class T>
+bool BinarySerchTree<T>::deleteBST(const Element<T>&x) {
+    return deleteBST(root,x);
+}
+
+template<class T>
+bool BinarySerchTree<T>::deleteBST(BstNode<T>*currentNode, const Element<T>&x) {
+    if (!currentNode) {
         return false;
     }
+    else {
+        if (x.key == currentNode->data.key) {
+            return deleteNode(currentNode);
+        }
+        else if (x.key < currentNode->data.key) {
+            return deleteBST(currentNode->leftChild, x);
+        }
+        else {
+            return deleteBST(currentNode->rightChild, x);
+        }
+    }
 }
+
 
 template<class T>
 void BinarySerchTree<T>::inOrder() {
@@ -210,6 +263,6 @@ void BinarySerchTree<T>::levelOrder() {
 
 template<class T>
 void BinarySerchTree<T>::visit(BstNode<T>*currentNode) {
-    std::cout <<"  "<<currentNode->data.key;
+    std::cout << "  " << currentNode->data.key;
 }
 #endif
