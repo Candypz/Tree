@@ -150,12 +150,14 @@ bool BinarySerchTree<T>::deleteNode(BstNode<T>*currecntNode) {
     if (currecntNode->rightChild == NULL) {
         q = currecntNode;
         currecntNode = currecntNode->rightChild;
-        free(q);
+        delete q;
+        q = NULL;
     }
     else if (currecntNode->leftChild == NULL) {
         q = currecntNode;
         currecntNode = currecntNode->leftChild;
-        free(q);
+        delete q;
+        q = NULL;
     }
     else {
         q = currecntNode;
@@ -171,7 +173,8 @@ bool BinarySerchTree<T>::deleteNode(BstNode<T>*currecntNode) {
         else {
             q->leftChild = s->leftChild;
         }
-        free(s);
+        delete s;
+        s = NULL;
     }
     return true;
 }
