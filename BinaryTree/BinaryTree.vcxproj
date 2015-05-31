@@ -81,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BTmain.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="BSTmain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

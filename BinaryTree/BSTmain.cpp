@@ -1,7 +1,7 @@
 #include <iostream>
 #include "BinarySearchTree.h"
 
-int main() {
+int BSTmain() {
     BinarySerchTree<int> m;
     Element<int> a, b, c, d, e, f, g, h, i, j;
     a.key = 5;
@@ -25,6 +25,13 @@ int main() {
     std::cout << ptr->data.key;
     BstNode<int>*ptr2;
     ptr2 = m.search(f);
-    std::cout << ptr2->data.key;
+    std::cout << ptr2->data.key << std::endl;
+
+
+    m.inOrder();
+    std::cout << std::endl;
+    m.postOrder();
+    std::cout << std::endl;
+    m.preOrder();
     return 0;
 }
