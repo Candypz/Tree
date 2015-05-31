@@ -76,6 +76,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BinarySearchTree.h" />
+    <ClInclude Include="BinaryTree.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BTmain.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
